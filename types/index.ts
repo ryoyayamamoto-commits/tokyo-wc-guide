@@ -4,34 +4,34 @@ export type Area = {
   name: string
   slug: string
   sort_order: number
-  created_at: string
+  created_at?: string
 }
 
 export type Genre = {
   id: string
   name: string
   slug: string
-  sort_order: number
-  created_at: string
+  sort_order?: number
+  created_at?: string
 }
 
 export type Venue = {
   id: string
   name: string
-  area_id: string
-  genre_id: string
+  area_id?: string
+  genre_id?: string
   address: string
   nearest_station: string | null
-  latitude: number | null
-  longitude: number | null
+  latitude?: number | null
+  longitude?: number | null
   image_url: string | null
   official_site_url: string | null
   reservation_url: string | null
   is_reservation_available: boolean
   is_featured: boolean
   description: string | null
-  created_at: string
-  updated_at: string
+  created_at?: string
+  updated_at?: string
 }
 
 export type Match = {
@@ -45,8 +45,8 @@ export type Match = {
   kickoff_at: string
   broadcast_channel: string | null
   is_japan_national: boolean
-  created_at: string
-  updated_at: string
+  created_at?: string
+  updated_at?: string
 }
 
 export type VenueMatch = {
