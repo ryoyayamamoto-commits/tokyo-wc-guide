@@ -85,9 +85,7 @@ export default async function VenueDetailPage({ params }: Props) {
           </a>
           {(venue.address || venue.google_maps_url) && (
             <a
-              href={venue.address
-                ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.address)}`
-                : venue.google_maps_url!}
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.name + ' 東京')}`}
               target="_blank"
               rel="noopener noreferrer"
             >
