@@ -20,24 +20,22 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-16">
-      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white px-6 py-10 md:py-14">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-72 h-72 bg-red-500 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
+      <section className="relative rounded-2xl bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white px-6 py-10 md:py-14" style={{overflow: 'hidden'}}>
+        <div aria-hidden="true" className="pointer-events-none select-none absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-red-500 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-36 h-36 bg-white rounded-full blur-3xl" />
         </div>
-        <div className="relative z-10 max-w-2xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm font-bold mb-4 backdrop-blur-sm tracking-wider uppercase">
+        <div className="relative z-10 w-full text-center">
+          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1.5 text-xs font-bold mb-4 backdrop-blur-sm tracking-wider uppercase">
             <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
             LIVE VIEWING · TOKYO 2026
           </div>
           <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight mb-3 leading-snug">
             観たい試合を選ぶだけ。
-            <span className="block text-blue-300">
-              東京の観戦スポットが<br className="sm:hidden" />見つかる。
-            </span>
+            <span className="block text-blue-300">東京の観戦スポットが見つかる。</span>
           </h1>
-          <p className="text-blue-200 text-base mb-8 leading-relaxed">
-            スポーツバー・パブなど東京都内の観戦スポットを<br className="hidden md:block" />
+          <p className="text-blue-200 text-sm sm:text-base mb-8 leading-relaxed">
+            スポーツバー・パブなど東京都内の観戦スポットを
             ワールドカップ日程と合わせて探せるサービスです。
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
