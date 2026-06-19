@@ -59,8 +59,14 @@ export default async function VenueDetailPage({ params }: Props) {
         </div>
 
         <div className="flex flex-wrap gap-3 pt-2">
-          {venue.google_maps_url && (
-            <a href={venue.google_maps_url} target="_blank" rel="noopener noreferrer">
+          {(venue.address || venue.google_maps_url) && (
+            <a
+              href={venue.address
+                ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.address)}`
+                : venue.google_maps_url!}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button className="bg-blue-900 hover:bg-blue-800 text-white">
                 📍 Google Mapで見る
               </Button>
