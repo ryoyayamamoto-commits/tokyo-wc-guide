@@ -59,6 +59,13 @@ export default async function VenueDetailPage({ params }: Props) {
         </div>
 
         <div className="flex flex-wrap gap-3 pt-2">
+          <a
+            href={`https://tabelog.com/rstLst/?vs=1&sa=&sk=${encodeURIComponent(venue.name)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="outline">食べログで見る</Button>
+          </a>
           {(venue.address || venue.google_maps_url) && (
             <a
               href={venue.address
