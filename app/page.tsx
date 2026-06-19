@@ -32,7 +32,7 @@ export default async function HomePage() {
           </div>
           <h1 className="text-3xl md:text-5xl font-black tracking-tight mb-3 leading-tight">
             観たい試合を選ぶだけ。
-            <span className="block text-blue-300 whitespace-nowrap">東京の観戦スポットが見つかる。</span>
+            <span className="block text-blue-300">東京の観戦スポットが見つかる。</span>
           </h1>
           <p className="text-blue-200 text-base mb-8 leading-relaxed">
             スポーツバー・パブなど東京都内の観戦スポットを<br className="hidden md:block" />
