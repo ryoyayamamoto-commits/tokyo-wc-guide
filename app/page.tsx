@@ -30,9 +30,11 @@ export default async function HomePage() {
             <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
             LIVE VIEWING · TOKYO 2026
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tight mb-3 leading-tight">
+          <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight mb-3 leading-snug">
             観たい試合を選ぶだけ。
-            <span className="block text-blue-300">東京の観戦スポットが見つかる。</span>
+            <span className="block text-blue-300">
+              東京の観戦スポットが<br className="sm:hidden" />見つかる。
+            </span>
           </h1>
           <p className="text-blue-200 text-base mb-8 leading-relaxed">
             スポーツバー・パブなど東京都内の観戦スポットを<br className="hidden md:block" />
