@@ -36,7 +36,7 @@ export default async function HomePage() {
           <div className="absolute bottom-0 left-0 w-36 h-36 bg-white rounded-full blur-3xl" />
         </div>
         <div className="relative z-10 w-full text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1.5 text-xs font-bold mb-4 backdrop-blur-sm tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-5 py-2.5 text-sm font-bold mb-4 backdrop-blur-sm tracking-wider uppercase">
             <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
             ⚽ FIFA WORLD CUP 2026 · LIVE VIEWING
           </div>
