@@ -45,8 +45,7 @@ export default async function HomePage() {
             <span className="block text-blue-300">東京の観戦スポットが見つかる。</span>
           </h1>
           <p className="text-blue-200 text-sm sm:text-base mb-8 leading-relaxed">
-            スポーツバー・パブなど東京都内の観戦スポットを
-            ワールドカップ日程と合わせて探せるサービスです。
+            「今日どの試合がある？」「どこで見る？」の<br />2つの疑問をこれ一つで解決。
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
             <Link href="/matches">
