@@ -19,6 +19,7 @@ export function formatKickoffTime(kickoffAt: string): string {
   return date.toLocaleTimeString('ja-JP', {
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
     timeZone: 'Asia/Tokyo',
   })
 }
