@@ -2,11 +2,37 @@ import Link from 'next/link'
 import { MatchCard } from '@/components/match/MatchCard'
 import { VenueCard } from '@/components/venue/VenueCard'
 import { Button } from '@/components/ui/button'
-import { areas, getUpcomingMatches, getFeaturedVenues } from '@/lib/data'
+import { supabase } from '@/lib/supabase'
 
-export default function HomePage() {
-  const matches = getUpcomingMatches()
-  const venues = getFeaturedVenues()
+export default async function HomePage() {
+  const now = new Date().toISOString()
+  const weekLater = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+
+  const [{ data: areasData }, { data: matchesData }, { data: venuesData }] = await Promise.all([
+    supabase.from('areas').select('*').order('sort_order'),
+    supabase
+      .from('matches')
+      .select('*, venue_matches(count)')
+      .gte('kickoff_at', now)
+      .lte('kickoff_at', weekLater)
+      .order('kickoff_at')
+      .limit(6),
+    supabase
+      .from('venues')
+      .select('*, area:areas(*), genre:genres(*), venue_matches(count)')
+      .eq('is_featured', true)
+      .limit(6),
+  ])
+
+  const areas = areasData ?? []
+  const matches = (matchesData ?? []).map((m: any) => ({
+    ...m,
+    venue_count: m.venue_matches?.[0]?.count ?? 0,
+  }))
+  const venues = (venuesData ?? []).map((v: any) => ({
+    ...v,
+    match_count: v.venue_matches?.[0]?.count ?? 0,
+  }))
 
   return (
     <div className="space-y-16">

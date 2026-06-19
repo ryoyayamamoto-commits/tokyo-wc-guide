@@ -1,14 +1,24 @@
 import { MatchCard } from '@/components/match/MatchCard'
-import { matches } from '@/lib/data'
+import { supabase } from '@/lib/supabase'
 
 export const metadata = {
   title: '試合一覧 | Tokyo World Cup Viewing Guide',
   description: 'ワールドカップ全試合の観戦スポット一覧',
 }
 
-export default function MatchesPage() {
-  const japanMatches = matches.filter((m) => m.is_japan_national)
-  const otherMatches = matches.filter((m) => !m.is_japan_national)
+export default async function MatchesPage() {
+  const { data } = await supabase
+    .from('matches')
+    .select('*, venue_matches(count)')
+    .order('kickoff_at')
+
+  const allMatches = (data ?? []).map((m: any) => ({
+    ...m,
+    venue_count: m.venue_matches?.[0]?.count ?? 0,
+  }))
+
+  const japanMatches = allMatches.filter((m: any) => m.is_japan_national)
+  const otherMatches = allMatches.filter((m: any) => !m.is_japan_national)
 
   return (
     <div className="space-y-10">
@@ -41,7 +51,7 @@ export default function MatchesPage() {
         </section>
       )}
 
-      {matches.length === 0 && (
+      {allMatches.length === 0 && (
         <p className="text-gray-500 text-sm">試合データがありません</p>
       )}
     </div>

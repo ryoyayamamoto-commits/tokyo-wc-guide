@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { VenueCard } from '@/components/venue/VenueCard'
 import { Badge } from '@/components/ui/badge'
 import { formatKickoffDate, formatKickoffTime } from '@/lib/utils'
-import { matches, areas, getVenuesForMatch } from '@/lib/data'
+import { supabase } from '@/lib/supabase'
 
 type Props = {
   params: Promise<{ id: string }>
@@ -12,7 +12,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { id } = await params
-  const match = matches.find((m) => m.id === id)
+  const { data: match } = await supabase.from('matches').select('*').eq('id', id).single()
   if (!match) return {}
   return {
     title: `${match.home_team} vs ${match.away_team} | Tokyo World Cup Viewing Guide`,
@@ -24,13 +24,28 @@ export default async function MatchDetailPage({ params, searchParams }: Props) {
   const { id } = await params
   const { area_id } = await searchParams
 
-  const match = matches.find((m) => m.id === id)
+  const [{ data: match }, { data: areasData }, { data: venueMatchesData }] = await Promise.all([
+    supabase.from('matches').select('*, venue_matches(count)').eq('id', id).single(),
+    supabase.from('areas').select('*').order('sort_order'),
+    supabase
+      .from('venue_matches')
+      .select('venue:venues(*, area:areas(*), genre:genres(*), venue_matches(count))')
+      .eq('match_id', id),
+  ])
+
   if (!match) notFound()
 
-  let venues = getVenuesForMatch(id)
+  const areas = areasData ?? []
+  let venues = (venueMatchesData ?? [])
+    .map((vm: any) => vm.venue)
+    .filter(Boolean)
+    .map((v: any) => ({ ...v, match_count: v.venue_matches?.[0]?.count ?? 0 }))
+
   if (area_id) {
-    venues = venues.filter((v) => v.area.id === area_id)
+    venues = venues.filter((v: any) => v.area.id === area_id)
   }
+
+  const matchWithCount = { ...match, venue_count: match.venue_matches?.[0]?.count ?? 0 }
 
   return (
     <div className="space-y-8">

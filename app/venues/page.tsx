@@ -1,6 +1,6 @@
 import { VenueCard } from '@/components/venue/VenueCard'
 import Link from 'next/link'
-import { venues, areas, genres } from '@/lib/data'
+import { supabase } from '@/lib/supabase'
 
 export const metadata = {
   title: '店舗一覧 | Tokyo World Cup Viewing Guide',
@@ -14,9 +14,20 @@ type Props = {
 export default async function VenuesPage({ searchParams }: Props) {
   const { area_id, genre_id } = await searchParams
 
-  let filtered = [...venues]
-  if (area_id) filtered = filtered.filter((v) => v.area.id === area_id)
-  if (genre_id) filtered = filtered.filter((v) => v.genre.id === genre_id)
+  const [{ data: areasData }, { data: genresData }, { data: venuesData }] = await Promise.all([
+    supabase.from('areas').select('*').order('sort_order'),
+    supabase.from('genres').select('*').order('sort_order'),
+    supabase.from('venues').select('*, area:areas(*), genre:genres(*), venue_matches(count)'),
+  ])
+
+  const areas = areasData ?? []
+  const genres = genresData ?? []
+  let filtered = (venuesData ?? []).map((v: any) => ({
+    ...v,
+    match_count: v.venue_matches?.[0]?.count ?? 0,
+  }))
+  if (area_id) filtered = filtered.filter((v: any) => v.area.id === area_id)
+  if (genre_id) filtered = filtered.filter((v: any) => v.genre.id === genre_id)
 
   return (
     <div className="space-y-8">
