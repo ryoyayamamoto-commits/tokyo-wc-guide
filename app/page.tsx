@@ -38,7 +38,7 @@ export default async function HomePage() {
         <div className="relative z-10 w-full text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1.5 text-xs font-bold mb-4 backdrop-blur-sm tracking-wider uppercase">
             <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-            LIVE VIEWING · TOKYO 2026
+            ⚽ FIFA WORLD CUP 2026 · LIVE VIEWING
           </div>
           <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight mb-3 leading-snug">
             観たい試合を選ぶだけ。
