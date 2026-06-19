@@ -40,10 +40,13 @@ export default async function HomePage() {
             <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
             ⚽ FIFA WORLD CUP 2026 · LIVE VIEWING
           </div>
-          <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight mb-3 leading-snug">
-            観たい試合を選ぶだけ。
-            <span className="block text-blue-300">東京の観戦スポットが見つかる。</span>
+          <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight mb-2 leading-snug">
+            FIFA W杯2026を
+            <span className="block text-blue-300">東京で観よう。</span>
           </h1>
+          <p className="text-white/80 text-sm sm:text-base mb-4">
+            観たい試合を選ぶだけ。観戦スポットが見つかる。
+          </p>
           <p className="text-blue-200 text-sm sm:text-base mb-8 leading-relaxed">
             FIFAワールドカップ2026の試合日程と、東京の観戦スポットをまとめてチェック。
           </p>
