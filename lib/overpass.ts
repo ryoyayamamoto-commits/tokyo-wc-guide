@@ -1,6 +1,6 @@
 import { type Venue } from '@/types'
 
-const OVERPASS_URL = 'https://overpass-api.de/api/interpreter'
+const OVERPASS_URL = 'https://overpass.kumi.systems/api/interpreter'
 
 // 東京の主要エリア中心座標
 const AREAS = [
@@ -102,8 +102,11 @@ out center;
 
   const res = await fetch(OVERPASS_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `data=${encodeURIComponent(query)}`,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json',
+    },
+    body: new URLSearchParams({ data: query }).toString(),
   })
 
   if (!res.ok) throw new Error(`Overpass API error: ${res.status}`)
