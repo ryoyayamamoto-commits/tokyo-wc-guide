@@ -11,6 +11,7 @@ export function formatKickoffDate(kickoffAt: string): string {
     month: 'long',
     day: 'numeric',
     weekday: 'short',
+    timeZone: 'Asia/Tokyo',
   })
 }
 
