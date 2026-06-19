@@ -1,6 +1,10 @@
 import { type Venue } from '@/types'
 
-const OVERPASS_URL = 'https://overpass.kumi.systems/api/interpreter'
+const OVERPASS_SERVERS = [
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.kumi.systems/api/interpreter',
+  'https://maps.mail.ru/osm/tools/overpass/api/interpreter',
+]
 
 // 東京の主要エリア中心座標
 const AREAS = [
@@ -100,16 +104,27 @@ export async function fetchTokyoSportsBars(): Promise<Omit<Venue, 'id' | 'create
 out center;
 `
 
-  const res = await fetch(OVERPASS_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
-    },
-    body: new URLSearchParams({ data: query }).toString(),
-  })
-
-  if (!res.ok) throw new Error(`Overpass API error: ${res.status}`)
+  let res: Response | null = null
+  let lastError = ''
+  for (const server of OVERPASS_SERVERS) {
+    try {
+      res = await fetch(server, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json',
+          'User-Agent': 'tokyo-wc-guide/1.0',
+        },
+        body: new URLSearchParams({ data: query }).toString(),
+        signal: AbortSignal.timeout(25000),
+      })
+      if (res.ok) break
+      lastError = `${server}: ${res.status}`
+    } catch (e) {
+      lastError = `${server}: ${e}`
+    }
+  }
+  if (!res || !res.ok) throw new Error(`All Overpass servers failed. Last: ${lastError}`)
 
   const data = await res.json()
   const elements = data.elements ?? []
