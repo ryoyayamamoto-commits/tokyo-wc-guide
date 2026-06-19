@@ -1,4 +1,5 @@
-﻿import { MatchCard } from '@/components/match/MatchCard'
+﻿import Link from 'next/link'
+import { MatchCard } from '@/components/match/MatchCard'
 import { supabase } from '@/lib/supabase'
 
 export const metadata = {

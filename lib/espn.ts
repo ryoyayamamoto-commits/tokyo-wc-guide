@@ -35,7 +35,7 @@ function parseEvent(event: any): Omit<Match, 'id' | 'created_at' | 'updated_at'>
       home_team: homeName,
       away_team: awayName,
       home_team_flag: getTeamFlag(homeName),
-      away_team_flag: getFlag(awayName),
+      away_team_flag: getTeamFlag(awayName),
       kickoff_at: comp.date,
       status: parseStatus(statusName),
       home_score: home.score ? parseInt(home.score) : null,
