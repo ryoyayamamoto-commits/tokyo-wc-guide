@@ -1,6 +1,7 @@
 ﻿import Link from 'next/link'
 import { MatchCard } from '@/components/match/MatchCard'
 import { VenueCard } from '@/components/venue/VenueCard'
+import { JapanMatchBanner } from '@/components/match/JapanMatchBanner'
 import { Button } from '@/components/ui/button'
 import { supabase } from '@/lib/supabase'
 
@@ -9,14 +10,23 @@ const AREAS = ['渋谷','新宿','池袋','六本木','恵比寿','上野','秋�
 export default async function HomePage() {
   const now = new Date().toISOString()
   const weekLater = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+  const todayStart = new Date()
+  todayStart.setHours(0, 0, 0, 0)
+  const todayEnd = new Date()
+  todayEnd.setHours(23, 59, 59, 999)
 
-  const [{ data: matchesData }, { data: venuesData }] = await Promise.all([
+  const [{ data: matchesData }, { data: venuesData }, { data: japanMatchesData }] = await Promise.all([
     supabase.from('matches').select('*').gte('kickoff_at', now).lte('kickoff_at', weekLater).order('kickoff_at').limit(6),
     supabase.from('venues').select('*').eq('is_active', true).order('soccer_friendly_score', { ascending: false }).limit(6),
+    supabase.from('matches').select('*').eq('is_japan_national', true).gte('kickoff_at', now).order('kickoff_at').limit(1),
   ])
 
   const matches = matchesData ?? []
   const venues = venuesData ?? []
+  const nextJapanMatch = japanMatchesData?.[0] ?? null
+  const isJapanMatchToday = nextJapanMatch
+    ? new Date(nextJapanMatch.kickoff_at) >= todayStart && new Date(nextJapanMatch.kickoff_at) <= todayEnd
+    : false
 
   return (
     <div className="space-y-16">
@@ -52,6 +62,10 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {nextJapanMatch && (
+        <JapanMatchBanner match={nextJapanMatch} isToday={isJapanMatchToday} />
+      )}
 
       <section>
         <div className="flex items-center justify-between mb-6">

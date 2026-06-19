@@ -5,15 +5,16 @@ import { FlagImage } from '@/components/match/FlagImage'
 
 type Props = {
   match: Match
+  highlight?: boolean
 }
 
-export function MatchCard({ match }: Props) {
+export function MatchCard({ match, highlight }: Props) {
   const isLive = match.status === 'live'
   const isFinished = match.status === 'finished'
 
   return (
     <Link href={`/matches/${match.id}`}>
-      <div className="group relative border-2 rounded-2xl overflow-hidden hover:border-blue-600 hover:shadow-xl transition-all duration-200 bg-white">
+      <div className={`group relative border-2 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-200 bg-white ${highlight ? 'border-red-400 hover:border-red-600' : 'hover:border-blue-600'}`}>
         {match.is_japan_national && (
           <div className="absolute top-3 right-3 z-10">
             <span className="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">

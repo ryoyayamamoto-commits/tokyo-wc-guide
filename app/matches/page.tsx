@@ -40,12 +40,18 @@ export default async function MatchesPage({ searchParams }: Props) {
       </form>
 
       {japanMatches.length > 0 && (
-        <section>
-          <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-            <span>🇯🇵</span><span>日本代表戦</span>
+        <section className="rounded-2xl border-2 border-red-200 bg-red-50 p-5">
+          <h2 className="text-lg font-black mb-4 flex items-center gap-2 text-red-700">
+            <img src="https://flagcdn.com/w40/jp.png" alt="Japan" width={24} height={18} className="rounded-sm" />
+            日本代表戦
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {japanMatches.map((match) => <MatchCard key={match.id} match={match} />)}
+            {japanMatches.map((match) => <MatchCard key={match.id} match={match} highlight />)}
+          </div>
+          <div className="mt-4 pt-4 border-t border-red-200 text-center">
+            <Link href="/venues" className="inline-flex items-center gap-2 text-sm font-bold text-red-700 hover:text-red-900">
+              🏟️ 日本代表戦の観戦スポットを探す →
+            </Link>
           </div>
         </section>
       )}
