@@ -1,30 +1,7 @@
 import { type Match } from '@/types'
+import { getTeamFlag } from '@/lib/flags'
 
 const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world'
-
-const TEAM_FLAGS: Record<string, string> = {
-  'Japan': '🇯🇵', 'Germany': '🇩🇪', 'Brazil': '🇧🇷', 'Argentina': '🇦🇷',
-  'France': '🇫🇷', 'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹',
-  'Netherlands': '🇳🇱', 'Belgium': '🇧🇪', 'Italy': '🇮🇹', 'Croatia': '🇭🇷',
-  'Morocco': '🇲🇦', 'Senegal': '🇸🇳', 'Nigeria': '🇳🇬', 'Egypt': '🇪🇬',
-  'Cameroon': '🇨🇲', 'Ghana': '🇬🇭', 'South Africa': '🇿🇦', 'Tunisia': '🇹🇳',
-  'Mexico': '🇲🇽', 'USA': '🇺🇸', 'United States': '🇺🇸', 'Canada': '🇨🇦',
-  'Costa Rica': '🇨🇷', 'Panama': '🇵🇦', 'Honduras': '🇭🇳', 'Jamaica': '🇯🇲',
-  'Colombia': '🇨🇴', 'Uruguay': '🇺🇾', 'Chile': '🇨🇱', 'Ecuador': '🇪🇨',
-  'Peru': '🇵🇪', 'Venezuela': '🇻🇪', 'Paraguay': '🇵🇾', 'Bolivia': '🇧🇴',
-  'South Korea': '🇰🇷', 'Australia': '🇦🇺', 'Saudi Arabia': '🇸🇦', 'Iran': '🇮🇷',
-  'Qatar': '🇶🇦', 'Iraq': '🇮🇶', 'Uzbekistan': '🇺🇿', 'Indonesia': '🇮🇩',
-  'Poland': '🇵🇱', 'Switzerland': '🇨🇭', 'Denmark': '🇩🇰', 'Sweden': '🇸🇪',
-  'Norway': '🇳🇴', 'Austria': '🇦🇹', 'Czech Republic': '🇨🇿', 'Slovakia': '🇸🇰',
-  'Hungary': '🇭🇺', 'Romania': '🇷🇴', 'Serbia': '🇷🇸', 'Ukraine': '🇺🇦',
-  'Turkey': '🇹🇷', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Wales': '🏴󠁧󠁢󠁷󠁬󠁳󠁿', 'Greece': '🇬🇷',
-  'New Zealand': '🇳🇿', 'Algeria': '🇩🇿', 'Ivory Coast': '🇨🇮',
-  "Côte d'Ivoire": '🇨🇮', 'DR Congo': '🇨🇩', 'Mali': '🇲🇱',
-}
-
-function getFlag(teamName: string): string {
-  return TEAM_FLAGS[teamName] ?? '🏳️'
-}
 
 function parseStatus(espnStatus: string): Match['status'] {
   if (espnStatus.includes('LIVE') || espnStatus.includes('IN_PROGRESS')) return 'live'
@@ -57,7 +34,7 @@ function parseEvent(event: any): Omit<Match, 'id' | 'created_at' | 'updated_at'>
       stage,
       home_team: homeName,
       away_team: awayName,
-      home_team_flag: getFlag(homeName),
+      home_team_flag: getTeamFlag(homeName),
       away_team_flag: getFlag(awayName),
       kickoff_at: comp.date,
       status: parseStatus(statusName),
