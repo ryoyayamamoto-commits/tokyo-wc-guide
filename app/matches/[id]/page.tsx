@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { formatKickoffDate, formatKickoffTime } from '@/lib/utils'
-import { getTeamFlag } from '@/lib/flags'
+import { FlagImage } from '@/components/match/FlagImage'
 import { supabase } from '@/lib/supabase'
 
 type Props = {
@@ -39,7 +39,7 @@ export default async function MatchDetailPage({ params }: Props) {
 
         <div className="flex items-center justify-center gap-8 py-6">
           <div className="text-center">
-            <div className="text-6xl mb-2">{match.home_team_flag || getTeamFlag(match.home_team)}</div>
+            <div className="flex justify-center mb-3"><FlagImage teamName={match.home_team} size={72} /></div>
             <div className="text-lg font-bold">{match.home_team}</div>
           </div>
           <div className="text-center">
@@ -52,7 +52,7 @@ export default async function MatchDetailPage({ params }: Props) {
             )}
           </div>
           <div className="text-center">
-            <div className="text-6xl mb-2">{match.away_team_flag || getTeamFlag(match.away_team)}</div>
+            <div className="flex justify-center mb-3"><FlagImage teamName={match.away_team} size={72} /></div>
             <div className="text-lg font-bold">{match.away_team}</div>
           </div>
         </div>

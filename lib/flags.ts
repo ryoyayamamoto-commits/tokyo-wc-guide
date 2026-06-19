@@ -1,76 +1,85 @@
-export const TEAM_FLAGS: Record<string, string> = {
-  // 日本・アジア
-  'Japan': '🇯🇵', 'South Korea': '🇰🇷', 'Australia': '🇦🇺',
-  'Saudi Arabia': '🇸🇦', 'Iran': '🇮🇷', 'Qatar': '🇶🇦',
-  'Iraq': '🇮🇶', 'Uzbekistan': '🇺🇿', 'Indonesia': '🇮🇩',
-  'China': '🇨🇳', 'China PR': '🇨🇳', 'Jordan': '🇯🇴',
-  'Oman': '🇴🇲', 'Kuwait': '🇰🇼', 'UAE': '🇦🇪',
-  'United Arab Emirates': '🇦🇪', 'Bahrain': '🇧🇭',
-  'Palestine': '🇵🇸', 'Thailand': '🇹🇭', 'Vietnam': '🇻🇳',
-  'Philippines': '🇵🇭', 'Kyrgyzstan': '🇰🇬', 'Tajikistan': '🇹🇯',
-  'India': '🇮🇳', 'Singapore': '🇸🇬', 'Malaysia': '🇲🇾',
-  'Myanmar': '🇲🇲', 'Nepal': '🇳🇵', 'Lebanon': '🇱🇧',
-  'Syria': '🇸🇾', 'Yemen': '🇾🇪', 'Pakistan': '🇵🇰',
-  'Afghanistan': '🇦🇫', 'Bangladesh': '🇧🇩', 'Sri Lanka': '🇱🇰',
-  'Cambodia': '🇰🇭', 'Laos': '🇱🇦', 'Mongolia': '🇲🇳',
-  'Turkmenistan': '🇹🇲', 'Kazakhstan': '🇰🇿', 'Azerbaijan': '🇦🇿',
+// ISO 3166-1 alpha-2 country codes for flagcdn.com
+export const TEAM_CODES: Record<string, string> = {
+  // アジア
+  'Japan': 'jp', 'South Korea': 'kr', 'Australia': 'au',
+  'Saudi Arabia': 'sa', 'Iran': 'ir', 'Qatar': 'qa',
+  'Iraq': 'iq', 'Uzbekistan': 'uz', 'Indonesia': 'id',
+  'China': 'cn', 'China PR': 'cn', 'Jordan': 'jo',
+  'Oman': 'om', 'Kuwait': 'kw', 'UAE': 'ae',
+  'United Arab Emirates': 'ae', 'Bahrain': 'bh',
+  'Palestine': 'ps', 'Thailand': 'th', 'Vietnam': 'vn',
+  'Philippines': 'ph', 'Kyrgyzstan': 'kg', 'Tajikistan': 'tj',
+  'India': 'in', 'Singapore': 'sg', 'Malaysia': 'my',
+  'Myanmar': 'mm', 'Nepal': 'np', 'Lebanon': 'lb',
+  'Syria': 'sy', 'Kazakhstan': 'kz', 'Azerbaijan': 'az',
 
   // ヨーロッパ
-  'Germany': '🇩🇪', 'France': '🇫🇷', 'Spain': '🇪🇸',
-  'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹', 'Netherlands': '🇳🇱',
-  'Belgium': '🇧🇪', 'Italy': '🇮🇹', 'Croatia': '🇭🇷',
-  'Poland': '🇵🇱', 'Switzerland': '🇨🇭', 'Denmark': '🇩🇰',
-  'Sweden': '🇸🇪', 'Norway': '🇳🇴', 'Austria': '🇦🇹',
-  'Czech Republic': '🇨🇿', 'Czechia': '🇨🇿', 'Slovakia': '🇸🇰',
-  'Hungary': '🇭🇺', 'Romania': '🇷🇴', 'Serbia': '🇷🇸',
-  'Ukraine': '🇺🇦', 'Turkey': '🇹🇷', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-  'Wales': '🏴󠁧󠁢󠁷󠁬󠁳󠁿', 'Greece': '🇬🇷', 'Albania': '🇦🇱',
-  'Slovenia': '🇸🇮', 'Finland': '🇫🇮', 'Ireland': '🇮🇪',
-  'Republic of Ireland': '🇮🇪', 'Northern Ireland': '🇬🇧',
-  'Bosnia and Herzegovina': '🇧🇦', 'Bulgaria': '🇧🇬',
-  'Georgia': '🇬🇪', 'Armenia': '🇦🇲', 'Cyprus': '🇨🇾',
-  'Kosovo': '🇽🇰', 'North Macedonia': '🇲🇰', 'Luxembourg': '🇱🇺',
-  'Israel': '🇮🇱', 'Belarus': '🇧🇾', 'Lithuania': '🇱🇹',
-  'Latvia': '🇱🇻', 'Estonia': '🇪🇪', 'Moldova': '🇲🇩',
-  'Montenegro': '🇲🇪', 'Iceland': '🇮🇸', 'Russia': '🇷🇺',
-  'Malta': '🇲🇹', 'Faroe Islands': '🇫🇴', 'Gibraltar': '🇬🇮',
-  'Andorra': '🇦🇩', 'San Marino': '🇸🇲', 'Liechtenstein': '🇱🇮',
+  'Germany': 'de', 'France': 'fr', 'Spain': 'es',
+  'England': 'gb-eng', 'Portugal': 'pt', 'Netherlands': 'nl',
+  'Belgium': 'be', 'Italy': 'it', 'Croatia': 'hr',
+  'Poland': 'pl', 'Switzerland': 'ch', 'Denmark': 'dk',
+  'Sweden': 'se', 'Norway': 'no', 'Austria': 'at',
+  'Czech Republic': 'cz', 'Czechia': 'cz', 'Slovakia': 'sk',
+  'Hungary': 'hu', 'Romania': 'ro', 'Serbia': 'rs',
+  'Ukraine': 'ua', 'Turkey': 'tr', 'Türkiye': 'tr',
+  'Scotland': 'gb-sct', 'Wales': 'gb-wls', 'Greece': 'gr',
+  'Albania': 'al', 'Slovenia': 'si', 'Finland': 'fi',
+  'Ireland': 'ie', 'Republic of Ireland': 'ie',
+  'Northern Ireland': 'gb-nir',
+  'Bosnia and Herzegovina': 'ba', 'Bulgaria': 'bg',
+  'Georgia': 'ge', 'Armenia': 'am', 'Cyprus': 'cy',
+  'Kosovo': 'xk', 'North Macedonia': 'mk', 'Luxembourg': 'lu',
+  'Israel': 'il', 'Belarus': 'by', 'Lithuania': 'lt',
+  'Latvia': 'lv', 'Estonia': 'ee', 'Moldova': 'md',
+  'Montenegro': 'me', 'Iceland': 'is', 'Russia': 'ru',
+  'Malta': 'mt', 'Faroe Islands': 'fo', 'Gibraltar': 'gi',
+  'Andorra': 'ad', 'San Marino': 'sm', 'Liechtenstein': 'li',
 
   // 南米
-  'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Colombia': '🇨🇴',
-  'Uruguay': '🇺🇾', 'Chile': '🇨🇱', 'Ecuador': '🇪🇨',
-  'Peru': '🇵🇪', 'Venezuela': '🇻🇪', 'Paraguay': '🇵🇾',
-  'Bolivia': '🇧🇴', 'Guyana': '🇬🇾', 'Suriname': '🇸🇷',
+  'Brazil': 'br', 'Argentina': 'ar', 'Colombia': 'co',
+  'Uruguay': 'uy', 'Chile': 'cl', 'Ecuador': 'ec',
+  'Peru': 'pe', 'Venezuela': 've', 'Paraguay': 'py',
+  'Bolivia': 'bo', 'Guyana': 'gy', 'Suriname': 'sr',
 
   // 北中米カリブ
-  'USA': '🇺🇸', 'United States': '🇺🇸', 'Mexico': '🇲🇽',
-  'Canada': '🇨🇦', 'Costa Rica': '🇨🇷', 'Panama': '🇵🇦',
-  'Honduras': '🇭🇳', 'Jamaica': '🇯🇲', 'El Salvador': '🇸🇻',
-  'Guatemala': '🇬🇹', 'Cuba': '🇨🇺', 'Haiti': '🇭🇹',
-  'Trinidad and Tobago': '🇹🇹', 'Nicaragua': '🇳🇮',
-  'Belize': '🇧🇿', 'Curaçao': '🇨🇼', 'Barbados': '🇧🇧',
+  'USA': 'us', 'United States': 'us', 'Mexico': 'mx',
+  'Canada': 'ca', 'Costa Rica': 'cr', 'Panama': 'pa',
+  'Honduras': 'hn', 'Jamaica': 'jm', 'El Salvador': 'sv',
+  'Guatemala': 'gt', 'Cuba': 'cu', 'Haiti': 'ht',
+  'Trinidad and Tobago': 'tt', 'Nicaragua': 'ni',
+  'Belize': 'bz', 'Curaçao': 'cw', 'Barbados': 'bb',
 
   // アフリカ
-  'Morocco': '🇲🇦', 'Senegal': '🇸🇳', 'Nigeria': '🇳🇬',
-  'Egypt': '🇪🇬', 'Cameroon': '🇨🇲', 'Ghana': '🇬🇭',
-  'South Africa': '🇿🇦', 'Tunisia': '🇹🇳', 'Algeria': '🇩🇿',
-  "Ivory Coast": '🇨🇮', "Côte d'Ivoire": '🇨🇮',
-  'DR Congo': '🇨🇩', 'Congo': '🇨🇬', 'Mali': '🇲🇱',
-  'Zambia': '🇿🇲', 'Zimbabwe': '🇿🇼', 'Angola': '🇦🇴',
-  'Tanzania': '🇹🇿', 'Kenya': '🇰🇪', 'Ethiopia': '🇪🇹',
-  'Uganda': '🇺🇬', 'Rwanda': '🇷🇼', 'Mozambique': '🇲🇿',
-  'Burkina Faso': '🇧🇫', 'Guinea': '🇬🇳', 'Benin': '🇧🇯',
-  'Namibia': '🇳🇦', 'Cape Verde': '🇨🇻', 'Gambia': '🇬🇲',
-  'Comoros': '🇰🇲', 'Sudan': '🇸🇩', 'Libya': '🇱🇾',
-  'Gabon': '🇬🇦', 'Equatorial Guinea': '🇬🇶', 'Mauritania': '🇲🇷',
-  'Niger': '🇳🇪', 'Togo': '🇹🇬',
+  'Morocco': 'ma', 'Senegal': 'sn', 'Nigeria': 'ng',
+  'Egypt': 'eg', 'Cameroon': 'cm', 'Ghana': 'gh',
+  'South Africa': 'za', 'Tunisia': 'tn', 'Algeria': 'dz',
+  "Ivory Coast": 'ci', "Côte d'Ivoire": 'ci',
+  'DR Congo': 'cd', 'Congo': 'cg', 'Mali': 'ml',
+  'Zambia': 'zm', 'Zimbabwe': 'zw', 'Angola': 'ao',
+  'Tanzania': 'tz', 'Kenya': 'ke', 'Ethiopia': 'et',
+  'Uganda': 'ug', 'Rwanda': 'rw', 'Mozambique': 'mz',
+  'Burkina Faso': 'bf', 'Guinea': 'gn', 'Benin': 'bj',
+  'Namibia': 'na', 'Cape Verde': 'cv', 'Gambia': 'gm',
+  'Comoros': 'km', 'Sudan': 'sd', 'Libya': 'ly',
+  'Gabon': 'ga', 'Mauritania': 'mr', 'Niger': 'ne',
+  'Togo': 'tg',
 
   // オセアニア
-  'New Zealand': '🇳🇿', 'Fiji': '🇫🇯',
-  'Papua New Guinea': '🇵🇬', 'Solomon Islands': '🇸🇧',
-  'Tahiti': '🇵🇫', 'Vanuatu': '🇻🇺', 'New Caledonia': '🇳🇨',
+  'New Zealand': 'nz', 'Fiji': 'fj',
+  'Papua New Guinea': 'pg', 'Solomon Islands': 'sb',
+  'Vanuatu': 'vu',
 }
 
+export function getTeamCode(teamName: string): string | null {
+  return TEAM_CODES[teamName] ?? null
+}
+
+export function getFlagUrl(teamName: string): string {
+  const code = getTeamCode(teamName)
+  return code ? `https://flagcdn.com/w80/${code}.png` : ''
+}
+
+// 後方互換用
 export function getTeamFlag(teamName: string): string {
-  return TEAM_FLAGS[teamName] ?? '🏳️'
+  return ''
 }

@@ -1,7 +1,7 @@
 ﻿import Link from 'next/link'
 import { type Match } from '@/types'
 import { formatKickoffDate, formatKickoffTime } from '@/lib/utils'
-import { getTeamFlag } from '@/lib/flags'
+import { FlagImage } from '@/components/match/FlagImage'
 
 type Props = {
   match: Match
@@ -36,7 +36,7 @@ export function MatchCard({ match }: Props) {
         <div className="px-4 py-5">
           <div className="flex items-center justify-between gap-2">
             <div className="flex-1 text-center">
-              <div className="text-4xl mb-1">{match.home_team_flag || getTeamFlag(match.home_team)}</div>
+              <div className="flex justify-center mb-2"><FlagImage teamName={match.home_team} size={48} /></div>
               <div className="font-black text-sm tracking-tight">{match.home_team}</div>
             </div>
             <div className="flex flex-col items-center gap-1 px-2">
@@ -52,7 +52,7 @@ export function MatchCard({ match }: Props) {
               )}
             </div>
             <div className="flex-1 text-center">
-              <div className="text-4xl mb-1">{match.away_team_flag || getTeamFlag(match.away_team)}</div>
+              <div className="flex justify-center mb-2"><FlagImage teamName={match.away_team} size={48} /></div>
               <div className="font-black text-sm tracking-tight">{match.away_team}</div>
             </div>
           </div>
