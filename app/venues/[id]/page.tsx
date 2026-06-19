@@ -77,7 +77,7 @@ export default async function VenueDetailPage({ params }: Props) {
 
         <div className="flex flex-wrap gap-3 pt-2">
           <a
-            href={`https://tabelog.com/rstLst/?vs=1&sa=%E6%9D%B1%E4%BA%AC%E9%83%BD&sk=${encodeURIComponent(venue.name)}`}
+            href={`https://tabelog.com/rstLst/?vs=1&sw=${encodeURIComponent(venue.name)}`}
             target="_blank"
             rel="noopener noreferrer"
           >
