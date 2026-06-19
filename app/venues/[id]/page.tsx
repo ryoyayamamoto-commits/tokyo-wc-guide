@@ -1,54 +1,23 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import { MatchCard } from '@/components/match/MatchCard'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { formatKickoffDate, formatKickoffTime } from '@/lib/utils'
 import { supabase } from '@/lib/supabase'
 
 type Props = {
   params: Promise<{ id: string }>
 }
 
-export async function generateMetadata({ params }: Props) {
-  const { id } = await params
-  const { data: venue } = await supabase
-    .from('venues')
-    .select('*, area:areas(*), genre:genres(*)')
-    .eq('id', id)
-    .single()
-  if (!venue) return {}
-  return {
-    title: `${venue.name} | Tokyo World Cup Viewing Guide`,
-    description: `${venue.area.name}にある${venue.genre.name}「${venue.name}」のワールドカップ放映情報`,
-  }
-}
-
 export default async function VenueDetailPage({ params }: Props) {
   const { id } = await params
-
-  const [{ data: venue }, { data: venueMatchesData }] = await Promise.all([
-    supabase.from('venues').select('*, area:areas(*), genre:genres(*)').eq('id', id).single(),
-    supabase
-      .from('venue_matches')
-      .select('match:matches(*, venue_matches(count))')
-      .eq('venue_id', id),
-  ])
-
+  const { data: venue } = await supabase.from('venues').select('*').eq('id', id).single()
   if (!venue) notFound()
 
-  const now = new Date()
-  const upcomingMatches = (venueMatchesData ?? [])
-    .map((vm: any) => vm.match)
-    .filter(Boolean)
-    .map((m: any) => ({ ...m, venue_count: m.venue_matches?.[0]?.count ?? 0 }))
-    .filter((m: any) => new Date(m.kickoff_at) > now)
-    .sort((a: any, b: any) => new Date(a.kickoff_at).getTime() - new Date(b.kickoff_at).getTime())
+  const score = venue.soccer_friendly_score
+  const scoreColor = score >= 60 ? 'text-green-700' : score >= 40 ? 'text-yellow-600' : 'text-gray-500'
 
   return (
     <div className="space-y-8">
-      {/* パンくず */}
       <nav className="text-sm text-gray-500">
         <Link href="/" className="hover:underline">ホーム</Link>
         <span className="mx-2">/</span>
@@ -57,99 +26,61 @@ export default async function VenueDetailPage({ params }: Props) {
         <span>{venue.name}</span>
       </nav>
 
-      {/* 店舗画像 */}
-      {venue.image_url && (
-        <div className="relative h-64 w-full rounded-2xl overflow-hidden">
-          <Image
-            src={venue.image_url}
-            alt={venue.name}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
-
-      {/* 店舗基本情報 */}
       <section className="bg-white border rounded-2xl p-6 space-y-4">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold">{venue.name}</h1>
-            <div className="flex flex-wrap gap-2 mt-2">
-              <Badge variant="secondary">{venue.area.name}</Badge>
-              <Badge variant="secondary">{venue.genre.name}</Badge>
-              {venue.is_reservation_available && (
-                <Badge variant="outline" className="text-green-700 border-green-400">
-                  予約可
-                </Badge>
-              )}
-              {venue.is_featured && (
-                <Badge className="bg-amber-500 text-white">おすすめ</Badge>
-              )}
-            </div>
+        <div>
+          <h1 className="text-2xl font-bold mb-2">{venue.name}</h1>
+          <div className="flex flex-wrap gap-2">
+            {venue.area && <Badge variant="secondary">{venue.area}</Badge>}
+            <Badge variant="outline" className={`font-bold ${scoreColor}`}>
+              観戦向きスコア {score}pt
+            </Badge>
           </div>
         </div>
 
-        {venue.description && (
-          <p className="text-gray-600 text-sm leading-relaxed">{venue.description}</p>
-        )}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-sm">
-          <div>
-            <span className="text-gray-500 block mb-0.5">住所</span>
-            <span className="font-medium">{venue.address}</span>
-          </div>
-          {venue.nearest_station && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          {venue.address && (
             <div>
-              <span className="text-gray-500 block mb-0.5">最寄駅</span>
-              <span className="font-medium">{venue.nearest_station}</span>
+              <span className="text-gray-500 block mb-0.5">住所</span>
+              <span className="font-medium">{venue.address}</span>
+            </div>
+          )}
+          {venue.phone && (
+            <div>
+              <span className="text-gray-500 block mb-0.5">電話</span>
+              <a href={`tel:${venue.phone}`} className="font-medium text-blue-600 hover:underline">{venue.phone}</a>
+            </div>
+          )}
+          {venue.opening_hours && (
+            <div className="sm:col-span-2">
+              <span className="text-gray-500 block mb-0.5">営業時間</span>
+              <span className="font-medium">{venue.opening_hours}</span>
             </div>
           )}
         </div>
 
-        {/* Google Map */}
-        {venue.latitude && venue.longitude && (
-          <a
-            href={`https://www.google.com/maps/search/?api=1&query=${venue.latitude},${venue.longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-blue-600 hover:underline"
-          >
-            📍 Google Mapで見る
-          </a>
-        )}
-
-        {/* アクションボタン */}
         <div className="flex flex-wrap gap-3 pt-2">
-          {venue.reservation_url && (
-            <a href={venue.reservation_url} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-green-700 hover:bg-green-800">予約する</Button>
+          {venue.google_maps_url && (
+            <a href={venue.google_maps_url} target="_blank" rel="noopener noreferrer">
+              <Button className="bg-blue-900 hover:bg-blue-800 text-white">
+                📍 Google Mapで見る
+              </Button>
             </a>
           )}
-          {venue.official_site_url && (
-            <a href={venue.official_site_url} target="_blank" rel="noopener noreferrer">
+          {venue.website_url && (
+            <a href={venue.website_url} target="_blank" rel="noopener noreferrer">
               <Button variant="outline">公式サイト</Button>
             </a>
           )}
         </div>
       </section>
 
-      {/* 放映予定試合 */}
-      <section>
-        <h2 className="text-lg font-bold mb-4">
-          放映予定の試合
-          <span className="ml-2 text-green-700">{upcomingMatches.length}件</span>
-        </h2>
-
-        {upcomingMatches.length === 0 ? (
-          <p className="text-gray-500 text-sm">放映予定の試合はありません</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {upcomingMatches.map((match) => (
-              <MatchCard key={match.id} match={match} />
-            ))}
-          </div>
-        )}
+      <section className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 text-center">
+        <p className="font-bold text-blue-900 mb-2">ワールドカップ試合日程も確認しよう</p>
+        <Link href="/matches">
+          <Button className="bg-red-600 hover:bg-red-700 text-white font-bold">
+            ⚽ 試合日程を見る
+          </Button>
+        </Link>
       </section>
     </div>
   )

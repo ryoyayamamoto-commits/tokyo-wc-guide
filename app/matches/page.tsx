@@ -1,41 +1,51 @@
-import { MatchCard } from '@/components/match/MatchCard'
+﻿import { MatchCard } from '@/components/match/MatchCard'
 import { supabase } from '@/lib/supabase'
 
 export const metadata = {
-  title: '試合一覧 | Tokyo World Cup Viewing Guide',
-  description: 'ワールドカップ全試合の観戦スポット一覧',
+  title: '試合日程 | Tokyo WC Guide',
+  description: 'FIFA World Cup 2026 全試合日程',
 }
 
-export default async function MatchesPage() {
-  const { data } = await supabase
-    .from('matches')
-    .select('*, venue_matches(count)')
-    .order('kickoff_at')
+type Props = {
+  searchParams: Promise<{ q?: string }>
+}
 
-  const allMatches = (data ?? []).map((m: any) => ({
-    ...m,
-    venue_count: m.venue_matches?.[0]?.count ?? 0,
-  }))
+export default async function MatchesPage({ searchParams }: Props) {
+  const { q } = await searchParams
 
-  const japanMatches = allMatches.filter((m: any) => m.is_japan_national)
-  const otherMatches = allMatches.filter((m: any) => !m.is_japan_national)
+  let query = supabase.from('matches').select('*').order('kickoff_at')
+  if (q) {
+    query = query.or(`home_team.ilike.%${q}%,away_team.ilike.%${q}%`)
+  }
+
+  const { data } = await query
+  const allMatches = data ?? []
+  const japanMatches = allMatches.filter((m) => m.is_japan_national)
+  const otherMatches = allMatches.filter((m) => !m.is_japan_national)
 
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-2xl font-bold mb-1">試合一覧</h1>
-        <p className="text-gray-500 text-sm">観たい試合を選んで、観戦できる店舗を探しましょう</p>
+        <h1 className="text-2xl font-bold mb-1">試合日程</h1>
+        <p className="text-gray-500 text-sm">FIFA World Cup 2026 全試合スケジュール</p>
       </div>
+
+      <form method="get">
+        <input
+          name="q"
+          defaultValue={q}
+          placeholder="チーム名で検索..."
+          className="w-full border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </form>
 
       {japanMatches.length > 0 && (
         <section>
           <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-            🇯🇵 <span>日本代表戦</span>
+            <span>🇯🇵</span><span>日本代表戦</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {japanMatches.map((match) => (
-              <MatchCard key={match.id} match={match} />
-            ))}
+            {japanMatches.map((match) => <MatchCard key={match.id} match={match} />)}
           </div>
         </section>
       )}
@@ -44,15 +54,15 @@ export default async function MatchesPage() {
         <section>
           <h2 className="text-lg font-bold mb-4">🌍 その他の試合</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {otherMatches.map((match) => (
-              <MatchCard key={match.id} match={match} />
-            ))}
+            {otherMatches.map((match) => <MatchCard key={match.id} match={match} />)}
           </div>
         </section>
       )}
 
       {allMatches.length === 0 && (
-        <p className="text-gray-500 text-sm">試合データがありません</p>
+        <div className="text-center py-16 text-gray-500">
+          <p>{q ? `"${q}" に一致する試合が見つかりませんでした` : '試合データを取得中です'}</p>
+        </div>
       )}
     </div>
   )
