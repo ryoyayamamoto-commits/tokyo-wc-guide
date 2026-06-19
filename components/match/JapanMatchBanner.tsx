@@ -45,19 +45,21 @@ export function JapanMatchBanner({ match, isToday }: Props) {
   return (
     <section className="rounded-2xl border-2 border-blue-200 bg-blue-50 px-6 py-5">
       <p className="text-xs font-bold text-blue-500 tracking-wider uppercase mb-2">次の日本代表戦</p>
-      <div className="flex items-center gap-3 mb-3">
-        <div className="flex items-center gap-2">
-          <FlagImage teamName="Japan" size={32} />
-          <span className="font-black text-blue-900">日本</span>
+      <div className="mb-3">
+        <div className="flex items-center gap-3 mb-1">
+          <div className="flex items-center gap-2">
+            <FlagImage teamName="Japan" size={32} />
+            <span className="font-black text-blue-900">日本</span>
+          </div>
+          <span className="text-gray-400 font-bold">vs</span>
+          <div className="flex items-center gap-2">
+            <FlagImage teamName={opponent} size={32} />
+            <span className="font-black text-blue-900">{opponent}</span>
+          </div>
         </div>
-        <span className="text-gray-400 font-bold">vs</span>
-        <div className="flex items-center gap-2">
-          <FlagImage teamName={opponent} size={32} />
-          <span className="font-black text-blue-900">{opponent}</span>
-        </div>
-        <span className="ml-auto text-sm text-blue-700 font-bold whitespace-nowrap">
+        <p className="text-sm text-blue-700 font-bold">
           {formatKickoffDate(match.kickoff_at)} {formatKickoffTime(match.kickoff_at)}
-        </span>
+        </p>
       </div>
       <div className="flex gap-2">
         <Link href={`/matches/${match.id}`}>
