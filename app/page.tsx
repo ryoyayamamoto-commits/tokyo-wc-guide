@@ -36,19 +36,16 @@ export default async function HomePage() {
           <div className="absolute bottom-0 left-0 w-36 h-36 bg-white rounded-full blur-3xl" />
         </div>
         <div className="relative z-10 w-full text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-5 py-2.5 text-sm font-bold mb-4 backdrop-blur-sm tracking-wider uppercase">
-            <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-xs sm:text-sm font-bold mb-4 backdrop-blur-sm tracking-wider uppercase whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse shrink-0" />
             ⚽ FIFA WORLD CUP 2026 · LIVE VIEWING
           </div>
           <h1 className="text-xl sm:text-3xl md:text-5xl font-black tracking-tight mb-2 leading-snug">
             FIFA W杯2026を
             <span className="block text-blue-300">東京で観よう。</span>
           </h1>
-          <p className="text-white/80 text-sm sm:text-base mb-4">
-            観たい試合を選ぶだけ。観戦スポットが見つかる。
-          </p>
           <p className="text-blue-200 text-sm sm:text-base mb-8 leading-relaxed">
-            FIFAワールドカップ2026の試合日程と、東京の観戦スポットをまとめてチェック。
+            観たい試合を選ぶだけ。<br />東京の観戦スポットが見つかる。
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
             <Link href="/matches">
