@@ -45,7 +45,7 @@ export default async function HomePage() {
             <span className="block text-blue-300">東京で観よう。</span>
           </h1>
           <p className="text-blue-200 text-sm sm:text-base mb-8 leading-relaxed">
-            試合日程と、東京の観戦スポットをまとめてチェック。
+            試合日程と、東京の観戦スポットを<br className="sm:hidden" />まとめてチェック。
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
             <Link href="/matches">
