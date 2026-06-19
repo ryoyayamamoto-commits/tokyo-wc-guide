@@ -29,6 +29,11 @@ export type Venue = {
   phone: string | null
   opening_hours: string | null
   soccer_friendly_score: number
+  has_large_screen?: boolean | null
+  has_reservation?: boolean | null
+  has_all_you_can_drink?: boolean | null
+  is_near_station?: boolean | null
+  has_english_menu?: boolean | null
   is_active: boolean
   created_at: string
   updated_at: string

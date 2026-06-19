@@ -37,6 +37,23 @@ export default async function VenueDetailPage({ params }: Props) {
           </div>
         </div>
 
+        <div className="flex flex-wrap gap-2">
+          {[
+            { key: 'has_large_screen', label: '📺 大画面あり' },
+            { key: 'has_reservation', label: '📅 予約可' },
+            { key: 'has_all_you_can_drink', label: '🍺 飲み放題' },
+            { key: 'is_near_station', label: '🚉 駅近' },
+            { key: 'has_english_menu', label: '🌍 英語対応' },
+          ].map(({ key, label }) => {
+            const active = (venue as Record<string, unknown>)[key] === true
+            return (
+              <span key={key} className={`text-sm px-3 py-1 rounded-full font-medium ${active ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-400 line-through'}`}>
+                {label}
+              </span>
+            )
+          })}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           {venue.address && (
             <div>
