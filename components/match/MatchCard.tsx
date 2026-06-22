@@ -2,6 +2,7 @@
 import { type Match } from '@/types'
 import { formatKickoffDate, formatKickoffTime } from '@/lib/utils'
 import { FlagImage } from '@/components/match/FlagImage'
+import { getTeamColor } from '@/lib/flagColors'
 
 type Props = {
   match: Match
@@ -38,7 +39,10 @@ export function MatchCard({ match, highlight }: Props) {
           <div className="flex items-center justify-between gap-2">
             <div className="flex-1 text-center">
               <div className="flex justify-center mb-2"><FlagImage teamName={match.home_team} size={48} /></div>
-              <div className="font-black text-sm tracking-tight">{match.home_team}</div>
+              <div className="flex items-center justify-center gap-1.5">
+                <span style={{ width: 16, height: 11, borderRadius: 2, display: 'inline-block', backgroundColor: getTeamColor(match.home_team), border: match.home_team === 'Japan' ? '1px solid #e5e7eb' : undefined, flexShrink: 0 }} />
+                <span className="font-black text-sm tracking-tight">{match.home_team}</span>
+              </div>
             </div>
             <div className="flex flex-col items-center gap-1 px-2">
               {isFinished || isLive ? (
@@ -54,7 +58,10 @@ export function MatchCard({ match, highlight }: Props) {
             </div>
             <div className="flex-1 text-center">
               <div className="flex justify-center mb-2"><FlagImage teamName={match.away_team} size={48} /></div>
-              <div className="font-black text-sm tracking-tight">{match.away_team}</div>
+              <div className="flex items-center justify-center gap-1.5">
+                <span style={{ width: 16, height: 11, borderRadius: 2, display: 'inline-block', backgroundColor: getTeamColor(match.away_team), border: match.away_team === 'Japan' ? '1px solid #e5e7eb' : undefined, flexShrink: 0 }} />
+                <span className="font-black text-sm tracking-tight">{match.away_team}</span>
+              </div>
             </div>
           </div>
         </div>
