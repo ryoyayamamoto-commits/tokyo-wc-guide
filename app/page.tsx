@@ -1,4 +1,6 @@
 ﻿import Link from 'next/link'
+
+export const dynamic = 'force-dynamic'
 import { MatchCard } from '@/components/match/MatchCard'
 import { VenueCard } from '@/components/venue/VenueCard'
 import { JapanMatchBanner } from '@/components/match/JapanMatchBanner'

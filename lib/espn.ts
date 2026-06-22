@@ -38,8 +38,8 @@ function parseEvent(event: any): Omit<Match, 'id' | 'created_at' | 'updated_at'>
       away_team_flag: getTeamFlag(awayName),
       kickoff_at: comp.date,
       status: parseStatus(statusName),
-      home_score: home.score ? parseInt(home.score) : null,
-      away_score: away.score ? parseInt(away.score) : null,
+      home_score: home.score != null ? parseInt(home.score) : null,
+      away_score: away.score != null ? parseInt(away.score) : null,
       is_japan_national: isJapanMatch(homeName, awayName),
     }
   } catch {

@@ -2,6 +2,8 @@
 import { MatchCard } from '@/components/match/MatchCard'
 import { supabase } from '@/lib/supabase'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: '試合日程 | Tokyo WC Guide',
   description: 'FIFA World Cup 2026 全試合日程',
